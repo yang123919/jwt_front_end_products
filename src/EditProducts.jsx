@@ -20,7 +20,6 @@ export default function EditProduct() {
     });
 
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -49,9 +48,7 @@ export default function EditProduct() {
                 } else {
                     setError("Product not found");
                 }
-            } finally {
-                setLoading(false);
-            }
+            } 
         };
 
         fetchProduct();
@@ -101,7 +98,6 @@ export default function EditProduct() {
         }
     };
 
-    if (loading) return <CircularProgress />;
 
     return (
         <Box sx={{ maxWidth: 500, margin: "2rem auto", p: 2 }}>

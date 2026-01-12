@@ -20,7 +20,6 @@ export default function AddProduct() {
     });
 
     const [categories, setCategories] = useState([]);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
     useEffect(() => {
@@ -52,7 +51,6 @@ export default function AddProduct() {
         }
 
         try {
-            setLoading(true);
             await axios.post(`${BASE_URL}/products/new`, { ...form, price: Number(form.price) }, { headers: { Authorization: `Bearer ${token}` } });
 
             alert("Product created successfully!");
@@ -65,8 +63,6 @@ export default function AddProduct() {
             } else {
                 setError(err.response?.data?.error || "Failed to create product");
             }
-        } finally {
-            setLoading(false);
         }
     };
 
@@ -108,8 +104,8 @@ export default function AddProduct() {
                 <TextField fullWidth name="imageUrl" label="Image URL" value={form.imageUrl} onChange={handleChange} margin="normal" />
 
                 <Box mt={2}>
-                    <Button type="submit" variant="contained" disabled={loading}>
-                        {loading ? <CircularProgress size={24} /> : "Create Product"}
+                    <Button type="submit" variant="contained">
+                        Create Product
                     </Button>
                     <Button type="button" variant="outlined" onClick={() => navigate("/products")} sx={{ ml: 2 }}>
                         Cancel
